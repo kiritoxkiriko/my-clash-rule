@@ -1,0 +1,15 @@
+payload:
+  - GEOSITE,category-dev
+  - DOMAIN-SUFFIX,unraid.net
+  - DOMAIN-SUFFIX,docker.io
+  - DOMAIN-SUFFIX,docker.com
+  - DOMAIN-SUFFIX,k8s.io
+  - DOMAIN-SUFFIX,pkg.dev
+  - DOMAIN-SUFFIX,huggingface.co
+  - DOMAIN-SUFFIX,nvidia.cn
+  - DOMAIN-SUFFIX,jetstack.io
+  - DOMAIN-SUFFIX,brew.sh
+  - GEOSITE,onedrive
+  - DOMAIN-SUFFIX,mvnrepository.com
+  - DOMAIN-SUFFIX,vllm.ai
+  - DOMAIN-SUFFIX,iterm2.com
