@@ -410,17 +410,17 @@ proxy-groups:
   - name: Dev
     type: select
     proxies:
+      - Manual
       - Proxy
       - Auto
-      - Manual
       - DIRECT
 
   - name: Netflix
     type: select
     proxies:
+      - SG
       - Proxy
       - Auto
-      - SG
       - HK
       - TW
       - JP
@@ -432,9 +432,9 @@ proxy-groups:
   - name: Disney
     type: select
     proxies:
+      - SG
       - Proxy
       - Auto
-      - SG
       - HK
       - TW
       - JP
@@ -511,21 +511,13 @@ proxy-groups:
       - REJECT
       - DIRECT
 
-  - name: Final
-    type: select
-    proxies:
-      - DIRECT
-      - Proxy
-      - Auto
-      - Manual
-
   # 这里的 Proxy 可以理解为主代理策略
   # 分隔,下面是节点选择相关分组，放在最后方便在客户端中集中查看
   - name: Proxy
     type: select
     proxies:
       - Auto
-      - Experimental
+      - Manul2
       - HK
       - TW
       - SG
@@ -534,6 +526,14 @@ proxy-groups:
       - KR
       - Manual
       - DIRECT
+
+  - name: Final
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+      - Manual
 
   # 这里的 DNS 指海外解析 DNS 走的节点，一般跟随主代理策略即可
   - name: DNS
@@ -545,6 +545,10 @@ proxy-groups:
 
   # 全部节点
   - name: Manual
+    type: select
+    include-all: true
+
+  - name: Manul2
     type: select
     include-all: true
 
@@ -577,10 +581,6 @@ proxy-groups:
   - name: KR
     <<: *use
     filter: "(?i)(韩|韓|kr|korea|kor|首尔)"
-
-  - name: Experimental
-    <<: *use
-    filter: "(?i)(实验性|experimental)"
 
 rules:
   # 若需禁用 QUIC 请取消注释 QUIC 两条规则

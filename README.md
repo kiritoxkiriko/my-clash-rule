@@ -30,10 +30,6 @@ https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/my
 
 规则文件位于 `rules/` 目录，`my-clash-rule.yaml` 会通过 `rule-providers` 引用这些规则。
 
-## 覆写示例
-
-只覆写 `订阅一` 的例子见 [examples/override-sub1.yaml](./examples/override-sub1.yaml)。
-
 当前包含的分流大致有：
 
 - `Direct`
