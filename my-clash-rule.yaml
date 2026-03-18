@@ -1,46 +1,75 @@
 # mihomo (Clash Meta) 懒人配置
 # 基于本仓库规则整理
 # 参考配置:
-# https://gist.githubusercontent.com/liuran001/5ca84f7def53c70b554d3f765ff86a33/raw/9de058af0600fbbcfb480f9cbc23bd7dafe9d039/config.yaml
-# 修改自官方示例规则思路，并按本仓库 rules/*.list 拆分为 rule-providers
-# 建议对照 Clash Meta / Mihomo 文档理解各配置项含义
-# 不理解的地方不要乱动，如果你只是想直接用，请优先修改订阅链接和基础配置
+# https://gist.github.com/liuran001/5ca84f7def53c70b554d3f765ff86a33
+# https://obdo.cc/meta
+# 修改自官方示例规则 https://wiki.metacubex.one/example/#meta
+# 尽量添加了较为详尽的注释，不理解的地方建议对照 虚空终端 (Clash Meta) Docs 进行理解
+# 虚空终端 (Clash Meta) Docs 地址: https://wiki.metacubex.one
+# 不理解的地方不要乱动，如果你是小白，请按下 `Ctrl + F` 搜索 `基础配置`，只修改此部分
+
+# 推荐使用 https://github.com/vernesong/mihomo/releases 魔改版 Mihomo
+# 支持 Smart 策略组，与 Surge 的 Smart 策略组功能大致相似，可以提供更加稳定的节点自动选择策略
+# 参见 Smart Core 工作原理详解 https://clashparty.org/docs/guide/smart-core-principles
+# 按下 `Ctrl + F` 搜索 `Smart 内核专属设置`
 
 # true 是启用
 # false 是禁用
 
 # 基础配置
 # --------------------------------------------------
-# 如果你只想快速使用，那么你只需要修改分割线以内与订阅相关的内容
+# 如果你是小白，那么你只需要修改分割线以内的内容
 # 其他部分保持不动即可
 
+# 也可以把分割线以内的内容粘贴到您使用代理工具的「覆写」功能，然后在覆写中进行修改
+# 但我们更建议自行修改配置文件而非进行覆写，自行修改后使用更为稳定
+# 且我们并不会经常性的对配置文件进行改动
+
+# 延迟检测 URL
 p: &p
   type: http
   # 自动更新订阅时间，单位为秒
-  interval: 3600
+  interval: 86400
   health-check:
     enable: true
-    url: https://cp.cloudflare.com
+    url: https://cp.cloudflare.com/generate_204
     # 节点连通性检测时间，单位为秒
-    interval: 300
+    interval: 600
     # 节点超时延迟，单位为毫秒
-    timeout: 1000
+    timeout: 1500
     # 节点自动切换差值，单位为毫秒
-    tolerance: 100
+    tolerance: 50
 
-# 如果你需要使用大于两个机场，在下方 use 处继续添加订阅名，
-# 然后在 proxy-providers 照例添加订阅链接即可。
-# 反之，如果你只需要使用一个，那么将“订阅二”注释掉即可。
+# 如果你需要使用大于两个机场，在下方 `use` 处添加 `订阅三` （名字可以自己取），然后在 `proxy-providers` 照例添加订阅链接即可
+# 反之，如果你只需要使用一个，那么将 `订阅二` 前添加 `#` 进行注释即可
+# 订阅名，记得修改成自己的
+# 添删订阅在这里和下方订阅链接依葫芦画瓢就行
 use: &use
+  # 如果不希望自动切换请将 `type: url-test` 更换为 `type: select`
   type: url-test
+  # --- Smart 内核专属设置
+  # 把上面那行 `type` 删掉
+  #type: smart
+  # 下方为 Smart 内核高级设置，如果不懂则不要启用，只切换 `type: smart` 即可
+  # policy-priority: <1 表示更低优先级，>1 表示更高优先级，默认值为 1，匹配规则支持正则表达式和字符串
+  #policy-priority: "Premium:0.9;SG:1.3"
+  # uselightgbm: 使用 LightGBM 模型预测权重
+  #uselightgbm: false
+  # collectdata: 收集数据用于模型训练
+  #collectdata: false
+  # sample-rate: 数据采集率，可取 0-1 之间的值，默认值为 1
+  #sample-rate: 1
+  # prefer-asn: 节点选择时强制优先查询 ASN，默认值为 false
+  #prefer-asn: true
+  # --- Smart 内核专属设置结束
   use:
     - 订阅一
-    - 订阅二
+    # - 订阅二
     # - 本地配置
 
 # 订阅链接
-# 对于订阅来说，path 为选填项，但建议启用。
-# 本地配置可以只填 path。
+# 对于订阅来说，path 为选填项，但建议启用
+# 本地配置可以只填 path
 proxy-providers:
   订阅一:
     <<: *p
@@ -70,8 +99,8 @@ proxy-providers:
 # --------------------------------------------------
 
 # 规则订阅
-# 这里把仓库中的 rules/*.list 全部映射成 rule-providers，
-# 并在 rules 段通过 RULE-SET 引用。
+# 这里把仓库中的 rules/*.list 全部映射成 rule-providers
+# 并在 rules 段通过 RULE-SET 引用
 # 如果后续增加新的 rules/*.list，请同步在下方添加 provider 与 rules 项。
 rule-providers:
   direct:
@@ -205,16 +234,40 @@ rule-providers:
 mode: rule
 # ipv6 支持
 ipv6: true
+# 日志等级
+# 建议默认为 info
+# silent 静默，不输出任何内容，以此减少 CPU 占用
+# error 仅输出发生错误至无法使用的日志
+# warning 输出发生错误但不影响运行的日志，以及 error 级别内容
+# info 输出一般运行的内容，以及 error 和 warning 级别内容
+# debug 尽可能输出所有内容
+log-level: info
 # 允许局域网连接
 allow-lan: true
-# socks5/http 混合端口
+# socks5/http 端口
 mixed-port: 7890
-log-level: info
-# Meta 内核特性
+# Meta 内核特性 https://wiki.metacubex.one/config/general
+# 统一延迟
+# 更换延迟计算方式,去除握手等额外延迟
 unified-delay: true
+# TCP 并发
+# 同时对所有ip进行连接，返回延迟最低的地址
 tcp-concurrent: true
+# 外部控制端口
 external-controller: :9090
+
 geodata-mode: true
+
+# --- Smart 内核专属设置（不使用 Smart 内核保持不动即可，切勿启用会导致无法正常启动）
+# 文档: https://github.com/vernesong/OpenClash/releases/tag/mihomo
+# 以下的配置项可以不启用，不启用则使用默认值
+# 启用模型自动更新，默认值为 false
+#lgbm-auto-update: true
+# 模型自动更新间隔，默认值为 72（小时）
+#lgbm-update-interval: 72
+# 模型更新地址
+#lgbm-url: "https://ghfast.top/https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model.bin"
+# --- Smart 内核专属设置结束
 
 # Geo 数据库下载地址
 # 源地址 https://github.com/MetaCubeX/meta-rules-dat
@@ -236,7 +289,7 @@ find-process-mode: strict
 keep-alive-interval: 1800
 
 # 全局客户端指纹
-global-client-fingerprint: random
+global-client-fingerprint: random # 随机指纹
 
 # 自动同步时间以防止时间不准导致无法正常联网
 ntp:
@@ -259,8 +312,8 @@ sniffer:
 
 # tun 模式
 tun:
-  enable: false
-  stack: system
+  enable: false  # enable 'true'
+  stack: system  # or 'gvisor'
   dns-hijack:
     - "any:53"
     - "tcp://any:53"
@@ -288,10 +341,10 @@ dns:
     - "[2402:4e00::]"
     - "[2400:3200::1]"
   nameserver:
-    - "tls://8.8.4.4#dns"
-    - "tls://1.0.0.1#dns"
-    - "tls://[2001:4860:4860::8844]#dns"
-    - "tls://[2606:4700:4700::1001]#dns"
+    - "tls://8.8.4.4#DNS"
+    - "tls://1.0.0.1#DNS"
+    - "tls://[2001:4860:4860::8844]#DNS"
+    - "tls://[2606:4700:4700::1001]#DNS"
   proxy-server-nameserver:
     - https://doh.pub/dns-query
   nameserver-policy:
@@ -306,16 +359,172 @@ dns:
 profile:
   store-selected: true
   store-fake-ip: true
+  # --- Smart 内核专属设置
+  # 数据收集文件大小，默认值为 100（MB）
+  # 这个没有启用的必要
+  #smart-collector-size: 100
+  # --- Smart 内核专属设置结束
 
 # 策略组
-# 分组名称沿用 my-clash-rule.ini，方便与现有规则对应。
-# 如果你需要调整分流出口，优先修改下面各策略组的 proxies 顺序。
+# 分组名称沿用 my-clash-rule.ini，方便与现有规则对应
+# 如果你需要调整分流出口，优先修改下面各策略组的 proxies 顺序
 proxy-groups:
-  # 主代理策略
+  # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
+  # 例如 [WARP, Proxy, Auto, HK, TW, JP, SG, US, KR, Manual, DIRECT]
+  - name: AI
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - Manual
+      - DIRECT
+
+  - name: Games-Direct
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+
+  - name: Games-Proxy
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - Manual
+      - DIRECT
+
+  - name: Dev-CN
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+
+  - name: Dev
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - Manual
+      - DIRECT
+
+  - name: Netflix
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - Manual
+      - DIRECT
+
+  - name: Disney
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - Manual
+      - DIRECT
+
+  - name: Video-TW
+    type: select
+    proxies:
+      - TW
+      - Proxy
+      - Manual
+      - DIRECT
+
+  - name: Video-US
+    type: select
+    proxies:
+      - US
+      - Proxy
+      - Auto
+      - Manual
+      - DIRECT
+
+  - name: Video-JP
+    type: select
+    proxies:
+      - JP
+      - Proxy
+      - Auto
+      - Manual
+      - DIRECT
+
+  - name: Video-Common
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - HK
+      - TW
+      - SG
+      - JP
+      - US
+      - KR
+      - Manual
+      - DIRECT
+
+  - name: VRChat
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - Manual
+      - DIRECT
+
+  - name: Direct
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+
+  - name: China
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+
+  - name: Ads
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: Final
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+      - Manual
+
+  # 这里的 Proxy 可以理解为主代理策略
+  # 分隔,下面是节点选择相关分组，放在最后方便在客户端中集中查看
   - name: Proxy
     type: select
     proxies:
-      - auto
+      - Auto
       - Experimental
       - HK
       - TW
@@ -323,28 +532,28 @@ proxy-groups:
       - JP
       - US
       - KR
-      - manual
+      - Manual
       - DIRECT
 
-  # 海外解析 dns 默认跟随主代理策略
-  - name: dns
+  # 这里的 DNS 指海外解析 DNS 走的节点，一般跟随主代理策略即可
+  - name: DNS
     type: select
     proxies:
       - Proxy
-      - auto
+      - Auto
       - DIRECT
 
-  # 手动节点选择
-  - name: manual
+  # 全部节点
+  - name: Manual
     type: select
     include-all: true
 
-  # 自动测速节点组
-  - name: auto
+  # 自动选择
+  - name: Auto
     <<: *use
     tolerance: 50
 
-  # 分地区自动选择
+  # 分隔,下面是地区分组
   - name: HK
     <<: *use
     filter: "(?i)(港|hk|hong kong|hongkong)"
@@ -373,175 +582,31 @@ proxy-groups:
     <<: *use
     filter: "(?i)(实验性|experimental)"
 
-  # 下面是各分流策略对应的策略组
-  - name: AI
-    type: select
-    proxies:
-      - Proxy
-      - auto
-      - SG
-      - HK
-      - TW
-      - JP
-      - US
-      - KR
-      - manual
-      - DIRECT
-
-  - name: Games-Direct
-    type: select
-    proxies:
-      - DIRECT
-      - Proxy
-      - auto
-
-  - name: Games-Proxy
-    type: select
-    proxies:
-      - Proxy
-      - auto
-      - manual
-      - DIRECT
-
-  - name: Dev-CN
-    type: select
-    proxies:
-      - DIRECT
-      - Proxy
-      - auto
-
-  - name: Dev
-    type: select
-    proxies:
-      - Proxy
-      - auto
-      - manual
-      - DIRECT
-
-  - name: Netflix
-    type: select
-    proxies:
-      - Proxy
-      - auto
-      - SG
-      - HK
-      - TW
-      - JP
-      - US
-      - KR
-      - manual
-      - DIRECT
-
-  - name: Disney
-    type: select
-    proxies:
-      - Proxy
-      - auto
-      - SG
-      - HK
-      - TW
-      - JP
-      - US
-      - KR
-      - manual
-      - DIRECT
-
-  - name: Video-TW
-    type: select
-    proxies:
-      - TW
-      - Proxy
-      - manual
-      - DIRECT
-
-  - name: Video-US
-    type: select
-    proxies:
-      - US
-      - Proxy
-      - auto
-      - manual
-      - DIRECT
-
-  - name: Video-JP
-    type: select
-    proxies:
-      - JP
-      - Proxy
-      - auto
-      - manual
-      - DIRECT
-
-  - name: Video-Common
-    type: select
-    proxies:
-      - Proxy
-      - auto
-      - HK
-      - TW
-      - SG
-      - JP
-      - US
-      - KR
-      - manual
-      - DIRECT
-
-  - name: VRChat
-    type: select
-    proxies:
-      - Proxy
-      - auto
-      - manual
-      - DIRECT
-
-  - name: Direct
-    type: select
-    proxies:
-      - DIRECT
-      - Proxy
-      - auto
-
-  - name: China
-    type: select
-    proxies:
-      - DIRECT
-      - Proxy
-      - auto
-
-  - name: Ads
-    type: select
-    proxies:
-      - REJECT
-      - DIRECT
-
-  - name: Final
-    type: select
-    proxies:
-      - Proxy
-      - auto
-      - DIRECT
-      - manual
-
 rules:
-  # 规则顺序沿用 my-clash-rule.ini
+  # 若需禁用 QUIC 请取消注释 QUIC 两条规则
+  # 防止 YouTube 等使用 QUIC 导致速度不佳, 禁用 443 端口 UDP 流量（不包括国内）
+  # - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
+  # - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT
   # 如需新增规则，请尽量放在更泛匹配规则之前
-  - RULE-SET,direct,Direct
-  - RULE-SET,china,China
-  - RULE-SET,ads,Ads
-  - RULE-SET,proxy,Proxy
-  - RULE-SET,ai,AI
+  - RULE-SET,vrchat,VRChat
   - RULE-SET,games-direct,Games-Direct
   - RULE-SET,games-proxy,Games-Proxy
-  - RULE-SET,dev-cn,Dev-CN
-  - RULE-SET,dev,Dev
+  - RULE-SET,direct,Direct
+  - RULE-SET,ads,Ads
+  - RULE-SET,ai,AI
   - RULE-SET,netflix,Netflix
   - RULE-SET,disney,Disney
   - RULE-SET,video-tw,Video-TW
   - RULE-SET,video-us,Video-US
   - RULE-SET,video-jp,Video-JP
   - RULE-SET,video-common,Video-Common
-  - RULE-SET,vrchat,VRChat
-  # 国内 IP 兜底直连
+  - RULE-SET,dev-cn,Dev-CN
+  - RULE-SET,dev,Dev
+  - RULE-SET,proxy,Proxy
+  - RULE-SET,china,China
+  # 绕过局域网地址
   - GEOIP,CN,Direct
-  # 其余流量交给 Final
+  # 其他就是所有规则没匹配到的
+  # 可以理解为 ACL4SSR 配置里的 漏网之鱼
+  # 换言之，其他走代理就是绕过中国大陆地址，不走就是 GFWList 模式
   - MATCH,Final
