@@ -1,0 +1,547 @@
+# mihomo (Clash Meta) 懒人配置
+# 基于本仓库规则整理
+# 参考配置:
+# https://gist.githubusercontent.com/liuran001/5ca84f7def53c70b554d3f765ff86a33/raw/9de058af0600fbbcfb480f9cbc23bd7dafe9d039/config.yaml
+# 修改自官方示例规则思路，并按本仓库 rules/*.list 拆分为 rule-providers
+# 建议对照 Clash Meta / Mihomo 文档理解各配置项含义
+# 不理解的地方不要乱动，如果你只是想直接用，请优先修改订阅链接和基础配置
+
+# true 是启用
+# false 是禁用
+
+# 基础配置
+# --------------------------------------------------
+# 如果你只想快速使用，那么你只需要修改分割线以内与订阅相关的内容
+# 其他部分保持不动即可
+
+p: &p
+  type: http
+  # 自动更新订阅时间，单位为秒
+  interval: 3600
+  health-check:
+    enable: true
+    url: https://cp.cloudflare.com
+    # 节点连通性检测时间，单位为秒
+    interval: 300
+    # 节点超时延迟，单位为毫秒
+    timeout: 1000
+    # 节点自动切换差值，单位为毫秒
+    tolerance: 100
+
+# 如果你需要使用大于两个机场，在下方 use 处继续添加订阅名，
+# 然后在 proxy-providers 照例添加订阅链接即可。
+# 反之，如果你只需要使用一个，那么将“订阅二”注释掉即可。
+use: &use
+  type: url-test
+  use:
+    - 订阅一
+    - 订阅二
+    # - 本地配置
+
+# 订阅链接
+# 对于订阅来说，path 为选填项，但建议启用。
+# 本地配置可以只填 path。
+proxy-providers:
+  订阅一:
+    <<: *p
+    # path: ./proxy_provider/订阅一.yaml
+    url: "https://example.com/airport?type=clashmeta"
+    # 如需要为该订阅组节点添加前缀，取消下面两行注释
+    # override:
+    #   additional-prefix: "[订阅一]"
+
+  订阅二:
+    <<: *p
+    # path: ./proxy_provider/订阅二.yaml
+    url: "https://example.com/api/v1/client/subscribe?token=replace-me"
+    # 如需要为该订阅组节点添加前缀，取消下面两行注释
+    # override:
+    #   additional-prefix: "[订阅二]"
+
+  # 本地配置:
+  #   <<: *p
+  #   path: ./proxy_provider/本地配置.yaml
+  #   如需要为该订阅组节点添加前缀，取消下面两行注释
+  #   override:
+  #     additional-prefix: "[本地配置]"
+
+# 小白请不要继续随意修改以下设置
+# 若需修改请参阅文档 https://wiki.metacubex.one
+# --------------------------------------------------
+
+# 规则订阅
+# 这里把仓库中的 rules/*.list 全部映射成 rule-providers，
+# 并在 rules 段通过 RULE-SET 引用。
+# 如果后续增加新的 rules/*.list，请同步在下方添加 provider 与 rules 项。
+rule-providers:
+  direct:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/direct.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/direct.list"
+    interval: 86400
+
+  china:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/china.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/china.list"
+    interval: 86400
+
+  ads:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/ads.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/ads.list"
+    interval: 86400
+
+  proxy:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/proxy.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/proxy.list"
+    interval: 86400
+
+  ai:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/ai.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/ai.list"
+    interval: 86400
+
+  games-direct:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/games-direct.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/games-direct.list"
+    interval: 86400
+
+  games-proxy:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/games-proxy.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/games-proxy.list"
+    interval: 86400
+
+  dev-cn:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/dev-cn.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/dev-cn.list"
+    interval: 86400
+
+  dev:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/dev.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/dev.list"
+    interval: 86400
+
+  netflix:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/netflix.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/netflix.list"
+    interval: 86400
+
+  disney:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/disney.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/disney.list"
+    interval: 86400
+
+  video-tw:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/video-tw.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/video-tw.list"
+    interval: 86400
+
+  video-us:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/video-us.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/video-us.list"
+    interval: 86400
+
+  video-jp:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/video-jp.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/video-jp.list"
+    interval: 86400
+
+  video-common:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/video-common.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/video-common.list"
+    interval: 86400
+
+  vrchat:
+    type: http
+    behavior: classical
+    format: text
+    path: ./rule_provider/vrchat.list
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/vrchat.list"
+    interval: 86400
+
+mode: rule
+# ipv6 支持
+ipv6: true
+# 允许局域网连接
+allow-lan: true
+# socks5/http 混合端口
+mixed-port: 7890
+log-level: info
+# Meta 内核特性
+unified-delay: true
+tcp-concurrent: true
+external-controller: :9090
+geodata-mode: true
+
+# Geo 数据库下载地址
+# 源地址 https://github.com/MetaCubeX/meta-rules-dat
+# 可以更换镜像站但不要更换其他数据库，可能导致无法启动
+geox-url:
+  geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
+  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
+
+# 进程匹配模式
+# 路由器上请设置为 off
+# always 开启，强制匹配所有进程
+# strict 默认，由 Clash 判断是否开启
+# off 不匹配进程，推荐在路由器上使用此模式
+find-process-mode: strict
+
+# 缓解移动设备耗电问题
+# https://github.com/vernesong/OpenClash/issues/2614
+keep-alive-interval: 1800
+
+# 全局客户端指纹
+global-client-fingerprint: random
+
+# 自动同步时间以防止时间不准导致无法正常联网
+ntp:
+  enable: true
+  # 是否同步至系统时间，需要 root/管理员权限
+  write-to-system: false
+  server: time.apple.com
+  port: 123
+  interval: 30
+
+# 域名嗅探
+sniffer:
+  enable: true
+  sniff:
+    TLS:
+      ports: [443, 8443]
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+
+# tun 模式
+tun:
+  enable: false
+  stack: system
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-detect-interface: true
+
+# dns 设置
+# 已配置 ipv6
+dns:
+  enable: true
+  listen: :1053
+  ipv6: true
+  # 路由器个人建议使用 redir-host 以最佳兼容性
+  # 其他设备可以使用 fake-ip
+  enhanced-mode: redir-host
+  fake-ip-range: 28.0.0.1/8
+  fake-ip-filter:
+    - "*"
+    - "+.lan"
+    - "+.local"
+  default-nameserver:
+    - 119.29.29.29
+    - 223.5.5.5
+    - 114.114.114.114
+    - "[2402:4e00::]"
+    - "[2400:3200::1]"
+  nameserver:
+    - "tls://8.8.4.4#dns"
+    - "tls://1.0.0.1#dns"
+    - "tls://[2001:4860:4860::8844]#dns"
+    - "tls://[2606:4700:4700::1001]#dns"
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
+  nameserver-policy:
+    "geosite:cn,private":
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
+    "geosite:!cn,!private":
+      - "tls://dns.google"
+      - "tls://cloudflare-dns.com"
+
+# 缓存
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+# 策略组
+# 分组名称沿用 my-clash-rule.ini，方便与现有规则对应。
+# 如果你需要调整分流出口，优先修改下面各策略组的 proxies 顺序。
+proxy-groups:
+  # 主代理策略
+  - name: Proxy
+    type: select
+    proxies:
+      - auto
+      - Experimental
+      - HK
+      - TW
+      - SG
+      - JP
+      - US
+      - KR
+      - manual
+      - DIRECT
+
+  # 海外解析 dns 默认跟随主代理策略
+  - name: dns
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - DIRECT
+
+  # 手动节点选择
+  - name: manual
+    type: select
+    include-all: true
+
+  # 自动测速节点组
+  - name: auto
+    <<: *use
+    tolerance: 50
+
+  # 分地区自动选择
+  - name: HK
+    <<: *use
+    filter: "(?i)(港|hk|hong kong|hongkong)"
+
+  - name: JP
+    <<: *use
+    filter: "(?i)(日本|jp|japan)"
+
+  - name: US
+    <<: *use
+    filter: "(?i)(美|us|united states|unitedstates)"
+
+  - name: TW
+    <<: *use
+    filter: "(?i)(台|tw|taiwan)"
+
+  - name: SG
+    <<: *use
+    filter: "(?i)(新加坡|狮城|sg|singapore)"
+
+  - name: KR
+    <<: *use
+    filter: "(?i)(韩|韓|kr|korea|kor|首尔)"
+
+  - name: Experimental
+    <<: *use
+    filter: "(?i)(实验性|experimental)"
+
+  # 下面是各分流策略对应的策略组
+  - name: AI
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - manual
+      - DIRECT
+
+  - name: Games-Direct
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - auto
+
+  - name: Games-Proxy
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - manual
+      - DIRECT
+
+  - name: Dev-CN
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - auto
+
+  - name: Dev
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - manual
+      - DIRECT
+
+  - name: Netflix
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - manual
+      - DIRECT
+
+  - name: Disney
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - manual
+      - DIRECT
+
+  - name: Video-TW
+    type: select
+    proxies:
+      - TW
+      - Proxy
+      - manual
+      - DIRECT
+
+  - name: Video-US
+    type: select
+    proxies:
+      - US
+      - Proxy
+      - auto
+      - manual
+      - DIRECT
+
+  - name: Video-JP
+    type: select
+    proxies:
+      - JP
+      - Proxy
+      - auto
+      - manual
+      - DIRECT
+
+  - name: Video-Common
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - HK
+      - TW
+      - SG
+      - JP
+      - US
+      - KR
+      - manual
+      - DIRECT
+
+  - name: VRChat
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - manual
+      - DIRECT
+
+  - name: Direct
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - auto
+
+  - name: China
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - auto
+
+  - name: Ads
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: Final
+    type: select
+    proxies:
+      - Proxy
+      - auto
+      - DIRECT
+      - manual
+
+rules:
+  # 规则顺序沿用 my-clash-rule.ini
+  # 如需新增规则，请尽量放在更泛匹配规则之前
+  - RULE-SET,direct,Direct
+  - RULE-SET,china,China
+  - RULE-SET,ads,Ads
+  - RULE-SET,proxy,Proxy
+  - RULE-SET,ai,AI
+  - RULE-SET,games-direct,Games-Direct
+  - RULE-SET,games-proxy,Games-Proxy
+  - RULE-SET,dev-cn,Dev-CN
+  - RULE-SET,dev,Dev
+  - RULE-SET,netflix,Netflix
+  - RULE-SET,disney,Disney
+  - RULE-SET,video-tw,Video-TW
+  - RULE-SET,video-us,Video-US
+  - RULE-SET,video-jp,Video-JP
+  - RULE-SET,video-common,Video-Common
+  - RULE-SET,vrchat,VRChat
+  # 国内 IP 兜底直连
+  - GEOIP,CN,Direct
+  # 其余流量交给 Final
+  - MATCH,Final
