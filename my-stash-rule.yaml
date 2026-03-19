@@ -1,0 +1,393 @@
+# Stash compatibility version
+# Docs:
+# https://stash.wiki/en/proxy-protocols/proxy-providers
+# https://stash.wiki/en/proxy-protocols/proxy-groups
+# https://stash.wiki/en/rules/rule-set
+# https://stash.wiki/en/features/dns-server
+
+mode: rule
+log-level: info
+allow-lan: true
+mixed-port: 7890
+
+dns:
+  default-nameserver:
+    - 119.29.29.29
+    - 223.5.5.5
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  skip-cert-verify: true
+  follow-rule: false
+
+proxy-providers:
+  订阅一:
+    # 请替换为支持 Stash / Clash YAML 节点订阅的链接
+    url: "https://example.com/airport?type=stash"
+    interval: 86400
+
+  # 订阅二:
+  #   url: "https://example.com/airport?type=stash"
+  #   interval: 86400
+
+rule-providers:
+  direct:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/direct.list"
+    interval: 86400
+
+  china:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/china.list"
+    interval: 86400
+
+  ads:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/ads.list"
+    interval: 86400
+
+  proxy:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/proxy.list"
+    interval: 86400
+
+  ai:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/ai.list"
+    interval: 86400
+
+  games-direct:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/games-direct.list"
+    interval: 86400
+
+  games-proxy:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/games-proxy.list"
+    interval: 86400
+
+  dev-cn:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/dev-cn.list"
+    interval: 86400
+
+  dev:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/dev.list"
+    interval: 86400
+
+  netflix:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/netflix.list"
+    interval: 86400
+
+  disney:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/disney.list"
+    interval: 86400
+
+  video-tw:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/video-tw.list"
+    interval: 86400
+
+  video-us:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/video-us.list"
+    interval: 86400
+
+  video-jp:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/video-jp.list"
+    interval: 86400
+
+  video-common:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/video-common.list"
+    interval: 86400
+
+  vrchat:
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules/vrchat.list"
+    interval: 86400
+
+proxy-groups:
+  - name: AI
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Games-Direct
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+
+  - name: Games-Proxy
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Dev-CN
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+
+  - name: Dev
+    type: select
+    proxies:
+      - Manual
+      - Manul2
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - Proxy
+      - Auto
+      - DIRECT
+
+  - name: Netflix
+    type: select
+    proxies:
+      - SG
+      - Proxy
+      - Auto
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Disney
+    type: select
+    proxies:
+      - SG
+      - Proxy
+      - Auto
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Video-TW
+    type: select
+    proxies:
+      - TW
+      - Proxy
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Video-US
+    type: select
+    proxies:
+      - US
+      - Proxy
+      - Auto
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Video-JP
+    type: select
+    proxies:
+      - JP
+      - Proxy
+      - Auto
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Video-Common
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - HK
+      - TW
+      - SG
+      - JP
+      - US
+      - KR
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: VRChat
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Direct
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+
+  - name: China
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+
+  - name: Ads
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: Proxy
+    type: select
+    proxies:
+      - Auto
+      - HK
+      - TW
+      - SG
+      - JP
+      - US
+      - KR
+      - Manual
+      - Manul2
+      - DIRECT
+
+  - name: Final
+    type: select
+    proxies:
+      - DIRECT
+      - Proxy
+      - Auto
+      - Manual
+      - Manul2
+
+  - name: DNS
+    type: select
+    proxies:
+      - Proxy
+      - Auto
+      - DIRECT
+
+  - name: Manual
+    type: select
+    include-all: true
+
+  - name: Manul2
+    type: select
+    include-all: true
+
+  - name: Auto
+    type: url-test
+    use:
+      - 订阅一
+      # - 订阅二
+    interval: 300
+    lazy: true
+
+  - name: HK
+    type: select
+    use:
+      - 订阅一
+      # - 订阅二
+    filter: "(?i)(港|hk|hong kong|hongkong)"
+
+  - name: JP
+    type: select
+    use:
+      - 订阅一
+      # - 订阅二
+    filter: "(?i)(日本|jp|japan)"
+
+  - name: US
+    type: select
+    use:
+      - 订阅一
+      # - 订阅二
+    filter: "(?i)(美|us|united states|unitedstates)"
+
+  - name: TW
+    type: select
+    use:
+      - 订阅一
+      # - 订阅二
+    filter: "(?i)(台|tw|taiwan)"
+
+  - name: SG
+    type: select
+    use:
+      - 订阅一
+      # - 订阅二
+    filter: "(?i)(新加坡|狮城|sg|singapore)"
+
+  - name: KR
+    type: select
+    use:
+      - 订阅一
+      # - 订阅二
+    filter: "(?i)(韩|韓|kr|korea|kor|首尔)"
+
+rules:
+  - RULE-SET,vrchat,VRChat
+  - RULE-SET,games-direct,Games-Direct
+  - RULE-SET,games-proxy,Games-Proxy
+  - RULE-SET,direct,Direct
+  - RULE-SET,ads,Ads
+  - RULE-SET,ai,AI
+  - RULE-SET,netflix,Netflix
+  - RULE-SET,disney,Disney
+  - RULE-SET,video-tw,Video-TW
+  - RULE-SET,video-us,Video-US
+  - RULE-SET,video-jp,Video-JP
+  - RULE-SET,video-common,Video-Common
+  - RULE-SET,dev-cn,Dev-CN
+  - RULE-SET,dev,Dev
+  - RULE-SET,proxy,Proxy
+  - RULE-SET,china,China
+  - GEOIP,CN,Direct
+  - MATCH,Final

@@ -349,9 +349,13 @@ dns:
   proxy-server-nameserver:
     - https://doh.pub/dns-query
   nameserver-policy:
-    # Stash 这里使用单个 nameserver 字符串，不使用数组
-    "geosite:cn,private": https://doh.pub/dns-query
-    "geosite:!cn,!private": "tls://dns.google"
+    "geosite:cn,apple,private":
+      - system
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
+    "geosite:!cn,!private": 
+      - "tls://dns.google"
+      - "tls://cloudflare-dns.com"
 
 # 缓存
 profile:
