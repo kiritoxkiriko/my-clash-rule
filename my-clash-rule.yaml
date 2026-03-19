@@ -348,12 +348,9 @@ dns:
   proxy-server-nameserver:
     - https://doh.pub/dns-query
   nameserver-policy:
-    "geosite:cn,private":
-      - https://doh.pub/dns-query
-      - https://dns.alidns.com/dns-query
-    "geosite:!cn,!private":
-      - "tls://dns.google"
-      - "tls://cloudflare-dns.com"
+    # Stash 这里使用单个 nameserver 字符串，不使用数组
+    "geosite:cn,private": https://doh.pub/dns-query
+    "geosite:!cn,!private": "tls://dns.google"
 
 # 缓存
 profile:
@@ -383,6 +380,7 @@ proxy-groups:
       - US
       - KR
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Games-Direct
@@ -398,6 +396,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Dev-CN
@@ -411,6 +410,13 @@ proxy-groups:
     type: select
     proxies:
       - Manual
+      - Manul2
+      - SG
+      - HK
+      - TW
+      - JP
+      - US
+      - KR
       - Proxy
       - Auto
       - DIRECT
@@ -427,6 +433,7 @@ proxy-groups:
       - US
       - KR
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Disney
@@ -441,6 +448,7 @@ proxy-groups:
       - US
       - KR
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Video-TW
@@ -449,6 +457,7 @@ proxy-groups:
       - TW
       - Proxy
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Video-US
@@ -458,6 +467,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Video-JP
@@ -467,6 +477,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Video-Common
@@ -481,6 +492,7 @@ proxy-groups:
       - US
       - KR
       - Manual
+      - Manul2
       - DIRECT
 
   - name: VRChat
@@ -489,6 +501,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Direct
@@ -517,7 +530,6 @@ proxy-groups:
     type: select
     proxies:
       - Auto
-      - Manul2
       - HK
       - TW
       - SG
@@ -525,6 +537,7 @@ proxy-groups:
       - US
       - KR
       - Manual
+      - Manul2
       - DIRECT
 
   - name: Final
@@ -534,6 +547,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
+      - Manul2
 
   # 这里的 DNS 指海外解析 DNS 走的节点，一般跟随主代理策略即可
   - name: DNS

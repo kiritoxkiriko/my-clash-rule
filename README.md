@@ -30,6 +30,27 @@ https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/my
 
 规则文件位于 `rules/` 目录，`my-clash-rule.yaml` 会通过 `rule-providers` 引用这些规则。
 
+## Cloudflare Worker
+
+仓库里提供了一个简单的 Worker 示例，文件见 [worker.js](./worker.js)。
+
+作用：
+
+- 接收订阅链接
+- 返回已经替换好 `订阅一` 的 `my-clash-rule.yaml`
+- 可选给 YAML 里的 GitHub 资源地址加上 `ghproxy` 前缀
+
+请求参数：
+
+- `sub`：订阅链接，必填
+- `ghproxy`：是否启用 GitHub 资源加速，可选，支持 `1/true/yes/on`
+
+调用示例：
+
+```text
+https://your-worker.workers.dev/?sub=https%3A%2F%2Fexample.com%2Fsubscribe&ghproxy=1
+```
+
 当前包含的分流大致有：
 
 - `Direct`
