@@ -1,5 +1,6 @@
 # mihomo (Clash Meta) 懒人配置
 # 基于本仓库规则整理
+# 关闭了所有ipv6支持
 # 参考配置:
 # https://gist.github.com/liuran001/5ca84f7def53c70b554d3f765ff86a33
 # https://obdo.cc/meta
@@ -330,7 +331,7 @@ tun:
 dns:
   enable: true
   listen: :1053
-  ipv6: true
+  ipv6: false
   # 路由器个人建议使用 redir-host 以最佳兼容性
   # 其他设备可以使用 fake-ip
   enhanced-mode: fake-ip
@@ -343,13 +344,13 @@ dns:
     - 119.29.29.29
     - 223.5.5.5
     - 114.114.114.114
-   # - "[2402:4e00::]"
-   # - "[2400:3200::1]"
+    - "[2402:4e00::]"
+    - "[2400:3200::1]"
   nameserver:
     - "tls://8.8.4.4#DNS"
     - "tls://1.0.0.1#DNS"
-   # - "tls://[2001:4860:4860::8844]#DNS"
-   # - "tls://[2606:4700:4700::1001]#DNS"
+    - "tls://[2001:4860:4860::8844]#DNS"
+    - "tls://[2606:4700:4700::1001]#DNS"
   direct-nameserver:
     - system
     - 119.29.29.29
