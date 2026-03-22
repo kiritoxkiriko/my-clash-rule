@@ -340,31 +340,48 @@ dns:
     - "*"
     - "+.lan"
     - "+.local"
-  default-nameserver:
-    - 119.29.29.29
-    - 223.5.5.5
-    - 114.114.114.114
-    - "[2402:4e00::]"
-    - "[2400:3200::1]"
   nameserver:
-    - "tls://8.8.4.4#DNS"
-    - "tls://1.0.0.1#DNS"
-    - "tls://[2001:4860:4860::8844]#DNS"
-    - "tls://[2606:4700:4700::1001]#DNS"
-  direct-nameserver:
-    - system
-    - 119.29.29.29
-    - 223.5.5.5
-  proxy-server-nameserver:
-    - https://doh.pub/dns-query
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    - 1.1.1.1
+    - 8.8.8.8
   nameserver-policy:
     "geosite:cn,apple,private":
       - system
-      - https://doh.pub/dns-query
-      - https://dns.alidns.com/dns-query
-    "geosite:!cn,!private": 
-      - "tls://dns.google"
-      - "tls://cloudflare-dns.com"
+      - 119.29.29.29
+      - 223.5.5.5
+      - 114.114.114.114
+  proxy-server-nameserver:
+    - system
+    - 119.29.29.29
+    - 223.5.5.5
+    - 114.114.114.114
+    
+  # default-nameserver:
+  #   - 119.29.29.29
+  #   - 223.5.5.5
+  #   - 114.114.114.114
+  #   - "[2402:4e00::]"
+  #   - "[2400:3200::1]"
+  # nameserver:
+  #   - "tls://8.8.4.4#DNS"
+  #   - "tls://1.0.0.1#DNS"
+  #   - "tls://[2001:4860:4860::8844]#DNS"
+  #   - "tls://[2606:4700:4700::1001]#DNS"
+  # direct-nameserver:
+  #   - system
+  #   - 119.29.29.29
+  #   - 223.5.5.5
+  # proxy-server-nameserver:
+  #   - https://doh.pub/dns-query
+  # nameserver-policy:
+  #   "geosite:cn,apple,private":
+  #     - system
+  #     - https://doh.pub/dns-query
+  #     - https://dns.alidns.com/dns-query
+  #   "geosite:!cn,!private": 
+  #     - "tls://dns.google"
+  #     - "tls://cloudflare-dns.com"
 
 # 缓存
 profile:
