@@ -5,7 +5,7 @@ import {
 
 const RULE_URL =
   "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/my-clash-rule.yaml";
-const GHPROXY_URL = "https://ghfast.top/";
+const GHPROXY_URL = "https://gh.sqlboy.me";
 
 const GITHUB_URL_RE =
   /https:\/\/(?:raw\.githubusercontent\.com|github\.com|gist\.githubusercontent\.com)\/[^\s"')]+/g;
