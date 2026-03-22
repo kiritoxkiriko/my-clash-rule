@@ -388,7 +388,7 @@ proxy-groups:
       - US
       - KR
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Games-Direct
@@ -404,7 +404,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Dev-CN
@@ -418,7 +418,7 @@ proxy-groups:
     type: select
     proxies:
       - Manual
-      - Manul2
+      - Manual2
       - SG
       - HK
       - TW
@@ -441,7 +441,7 @@ proxy-groups:
       - US
       - KR
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Disney
@@ -456,7 +456,7 @@ proxy-groups:
       - US
       - KR
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Video-TW
@@ -465,7 +465,7 @@ proxy-groups:
       - TW
       - Proxy
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Video-US
@@ -475,7 +475,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Video-JP
@@ -485,7 +485,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Video-Common
@@ -500,7 +500,7 @@ proxy-groups:
       - US
       - KR
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: VRChat
@@ -509,7 +509,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Direct
@@ -545,7 +545,7 @@ proxy-groups:
       - US
       - KR
       - Manual
-      - Manul2
+      - Manual2
       - DIRECT
 
   - name: Final
@@ -555,7 +555,7 @@ proxy-groups:
       - Proxy
       - Auto
       - Manual
-      - Manul2
+      - Manual2
 
   # 这里的 DNS 指海外解析 DNS 走的节点，一般跟随主代理策略即可
   - name: DNS
@@ -570,7 +570,7 @@ proxy-groups:
     type: select
     include-all: true
 
-  - name: Manul2
+  - name: Manual2
     type: select
     include-all: true
 
