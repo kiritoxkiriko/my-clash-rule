@@ -238,7 +238,7 @@ rule-providers:
 
 mode: rule
 # ipv6 支持
-ipv6: true
+ipv6: false
 # 日志等级
 # 建议默认为 info
 # silent 静默，不输出任何内容，以此减少 CPU 占用
@@ -333,7 +333,7 @@ dns:
   ipv6: true
   # 路由器个人建议使用 redir-host 以最佳兼容性
   # 其他设备可以使用 fake-ip
-  enhanced-mode: redir-host
+  enhanced-mode: fake-ip
   fake-ip-range: 28.0.0.1/8
   fake-ip-filter:
     - "*"
@@ -343,13 +343,13 @@ dns:
     - 119.29.29.29
     - 223.5.5.5
     - 114.114.114.114
-    - "[2402:4e00::]"
-    - "[2400:3200::1]"
+   # - "[2402:4e00::]"
+   # - "[2400:3200::1]"
   nameserver:
     - "tls://8.8.4.4#DNS"
     - "tls://1.0.0.1#DNS"
-    - "tls://[2001:4860:4860::8844]#DNS"
-    - "tls://[2606:4700:4700::1001]#DNS"
+   # - "tls://[2001:4860:4860::8844]#DNS"
+   # - "tls://[2606:4700:4700::1001]#DNS"
   direct-nameserver:
     - system
     - 119.29.29.29
