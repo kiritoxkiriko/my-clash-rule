@@ -345,17 +345,22 @@ dns:
     - https://8.8.8.8/dns-query
     - 1.1.1.1
     - 8.8.8.8
+  direct-nameserver:
+    - system
+    - 119.29.29.29
+    - 223.5.5.5
+    - 114.114.114.114
+  proxy-server-nameserver:
+    - system
+    - 119.29.29.29
+    - 223.5.5.5
+    - 114.114.114.114
   nameserver-policy:
     "geosite:cn,apple,private":
       - system
       - 119.29.29.29
       - 223.5.5.5
       - 114.114.114.114
-  proxy-server-nameserver:
-    - system
-    - 119.29.29.29
-    - 223.5.5.5
-    - 114.114.114.114
     
   # default-nameserver:
   #   - 119.29.29.29
