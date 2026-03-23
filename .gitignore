@@ -9,3 +9,5 @@ __pycache__/
 venv/
 
 rules-validation-report.txt
+
+node_modules/
