@@ -6,6 +6,7 @@ IP-CIDR,223.6.6.6/32
 IP-CIDR,119.29.29.29/32
 IP-CIDR,180.76.76.76/32
 GEOSITE,apple
+GEOSITE,microsoft
 DOMAIN-SUFFIX,microsoft.com
 DOMAIN-SUFFIX,dyndns.com
 DOMAIN-SUFFIX,steamcontent.com
