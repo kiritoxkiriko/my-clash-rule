@@ -341,10 +341,10 @@ dns:
     - "+.lan"
     - "+.local"
   nameserver:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
-    - 1.1.1.1
-    - 8.8.8.8
+    - 1.1.1.1#DNS
+    - 8.8.8.8#DNS
+    - https://1.1.1.1/dns-query#DNS
+    - https://8.8.8.8/dns-query#DNS
   direct-nameserver:
     - system
     - 119.29.29.29
@@ -356,7 +356,7 @@ dns:
     - 223.5.5.5
     - 114.114.114.114
   nameserver-policy:
-    "geosite:cn,apple,private":
+    "geosite:cn,apple,microsoft,tencent-games,steam@cn,private":
       - system
       - 119.29.29.29
       - 223.5.5.5
