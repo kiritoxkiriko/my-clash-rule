@@ -25,7 +25,6 @@ GEOSITE,geolocation-!cn
 GEOSITE,reddit
 GEOSITE,google
 GEOSITE,ehentai
-DOMAIN-SUFFIX,cloudflare
 DOMAIN-SUFFIX,kernelsu.org
 DOMAIN-SUFFIX,dmhy.org
 DOMAIN-SUFFIX,share.dmhy.org
