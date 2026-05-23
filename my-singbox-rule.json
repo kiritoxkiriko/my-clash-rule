@@ -51,43 +51,43 @@
     {
       "type": "selector",
       "tag": "AI",
-      "outbounds": ["Proxy", "Auto", "SG", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "outbounds": ["Proxy", "SG", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
       "default": "Proxy"
     },
     {
       "type": "selector",
       "tag": "Games-Direct",
-      "outbounds": ["direct", "Proxy", "Auto"],
+      "outbounds": ["direct", "Proxy"],
       "default": "direct"
     },
     {
       "type": "selector",
       "tag": "Games-Proxy",
-      "outbounds": ["Proxy", "Auto", "Manual", "Manual2", "direct"],
+      "outbounds": ["Proxy", "Manual", "Manual2", "direct"],
       "default": "Proxy"
     },
     {
       "type": "selector",
       "tag": "Dev-CN",
-      "outbounds": ["direct", "Proxy", "Auto"],
+      "outbounds": ["direct", "Proxy"],
       "default": "direct"
     },
     {
       "type": "selector",
       "tag": "Dev",
-      "outbounds": ["Manual", "Manual2", "SG", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Proxy", "Auto", "direct"],
+      "outbounds": ["Manual", "Manual2", "SG", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Proxy", "direct"],
       "default": "Manual"
     },
     {
       "type": "selector",
       "tag": "Netflix",
-      "outbounds": ["SG", "Proxy", "Auto", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "outbounds": ["SG", "Proxy", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
       "default": "SG"
     },
     {
       "type": "selector",
       "tag": "Disney",
-      "outbounds": ["SG", "Proxy", "Auto", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "outbounds": ["SG", "Proxy", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
       "default": "SG"
     },
     {
@@ -99,55 +99,55 @@
     {
       "type": "selector",
       "tag": "Video-US",
-      "outbounds": ["US-Advance", "US", "Proxy", "Auto", "Manual", "Manual2", "direct"],
+      "outbounds": ["US-Advance", "US", "Proxy", "Manual", "Manual2", "direct"],
       "default": "US-Advance"
     },
     {
       "type": "selector",
       "tag": "Video-JP",
-      "outbounds": ["JP-Advance", "JP", "Proxy", "Auto", "Manual", "Manual2", "direct"],
+      "outbounds": ["JP-Advance", "JP", "Proxy", "Manual", "Manual2", "direct"],
       "default": "JP-Advance"
     },
     {
       "type": "selector",
       "tag": "Video-Common",
-      "outbounds": ["Proxy", "Auto", "HK-Advance", "HK", "TW", "SG", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "outbounds": ["Proxy", "HK-Advance", "HK", "TW", "SG", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
       "default": "Proxy"
     },
     {
       "type": "selector",
       "tag": "VRChat",
-      "outbounds": ["Proxy", "Auto", "Manual", "Manual2", "direct"],
+      "outbounds": ["Proxy", "Manual", "Manual2", "direct"],
       "default": "Proxy"
     },
     {
       "type": "selector",
       "tag": "Direct",
-      "outbounds": ["direct", "Proxy", "Auto"],
+      "outbounds": ["direct", "Proxy"],
       "default": "direct"
     },
     {
       "type": "selector",
       "tag": "China",
-      "outbounds": ["direct", "Proxy", "Auto"],
+      "outbounds": ["direct", "Proxy"],
       "default": "direct"
     },
     {
       "type": "selector",
       "tag": "Proxy",
-      "outbounds": ["Auto", "HK-Advance", "HK", "TW", "SG", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
-      "default": "Auto"
+      "outbounds": ["HK-Advance", "HK", "TW", "SG", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "default": "HK-Advance"
     },
     {
       "type": "selector",
       "tag": "Final",
-      "outbounds": ["direct", "Proxy", "Auto", "Manual", "Manual2"],
+      "outbounds": ["direct", "Proxy", "Manual", "Manual2"],
       "default": "direct"
     },
     {
       "type": "selector",
       "tag": "DNS",
-      "outbounds": ["Proxy", "Auto", "direct"],
+      "outbounds": ["Proxy", "direct"],
       "default": "Proxy"
     },
     {
@@ -161,14 +161,6 @@
       "tag": "Manual2",
       "outbounds": ["direct"],
       "default": "direct"
-    },
-    {
-      "type": "urltest",
-      "tag": "Auto",
-      "outbounds": ["direct"],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "5m",
-      "tolerance": 50
     },
     {
       "type": "selector",

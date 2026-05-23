@@ -408,12 +408,11 @@ profile:
 # 如果你需要调整分流出口，优先修改下面各策略组的 proxies 顺序
 proxy-groups:
   # 使用 WARP 的用户需要手动在下方的 proxies 字段内添加 WARP
-  # 例如 [WARP, Proxy, Auto, HK, TW, JP, SG, US, KR, Manual, DIRECT]
+  # 例如 [WARP, Proxy, HK-Advance, HK, TW, JP-Advance, JP, SG, US-Advance, US, KR, Manual, DIRECT]
   - name: AI
     type: select
     proxies:
       - Proxy
-      - Auto
       - SG
       - HK-Advance
       - HK
@@ -432,13 +431,11 @@ proxy-groups:
     proxies:
       - DIRECT
       - Proxy
-      - Auto
 
   - name: Games-Proxy
     type: select
     proxies:
       - Proxy
-      - Auto
       - Manual
       - Manual2
       - DIRECT
@@ -448,7 +445,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - Proxy
-      - Auto
 
   - name: Dev
     type: select
@@ -465,7 +461,6 @@ proxy-groups:
       - US-Advance
       - US
       - KR
-      - Auto
       - DIRECT
 
   - name: Netflix
@@ -473,7 +468,6 @@ proxy-groups:
     proxies:
       - SG
       - Proxy
-      - Auto
       - HK-Advance
       - HK
       - TW
@@ -491,7 +485,6 @@ proxy-groups:
     proxies:
       - SG
       - Proxy
-      - Auto
       - HK-Advance
       - HK
       - TW
@@ -519,7 +512,6 @@ proxy-groups:
       - US-Advance
       - US
       - Proxy
-      - Auto
       - Manual
       - Manual2
       - DIRECT
@@ -530,7 +522,6 @@ proxy-groups:
       - JP-Advance
       - JP
       - Proxy
-      - Auto
       - Manual
       - Manual2
       - DIRECT
@@ -539,7 +530,6 @@ proxy-groups:
     type: select
     proxies:
       - Proxy
-      - Auto
       - HK-Advance
       - HK
       - TW
@@ -557,7 +547,6 @@ proxy-groups:
     type: select
     proxies:
       - Proxy
-      - Auto
       - Manual
       - Manual2
       - Manual2
@@ -568,14 +557,12 @@ proxy-groups:
     proxies:
       - DIRECT
       - Proxy
-      - Auto
 
   - name: China
     type: select
     proxies:
       - DIRECT
       - Proxy
-      - Auto
 
   - name: Ads
     type: select
@@ -588,7 +575,6 @@ proxy-groups:
   - name: Proxy
     type: select
     proxies:
-      - Auto
       - HK-Advance
       - HK
       - TW
@@ -607,7 +593,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - Proxy
-      - Auto
       - Manual
       - Manual2
 
@@ -616,7 +601,6 @@ proxy-groups:
     type: select
     proxies:
       - Proxy
-      - Auto
       - DIRECT
 
   # 全部节点
@@ -627,15 +611,6 @@ proxy-groups:
   - name: Manual2
     type: select
     include-all: true
-
-  # 自动选择
-  - name: Auto
-    <<: *use
-    type: url-test
-    url: https://cp.cloudflare.com/generate_204
-    interval: 300
-    lazy: true
-    tolerance: 50
 
   # 分隔,下面是地区分组
   - name: HK

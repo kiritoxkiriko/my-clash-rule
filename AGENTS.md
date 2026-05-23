@@ -42,7 +42,7 @@ npm run generate:singbox-srs
   * `JP-Advance`
   * `US-Advance`
 * When a group includes both a normal region and its Advance variant, the Advance variant should come first.
-* `Auto` remains an automatic latency-test group.
+* Do not reintroduce the global `Auto` group unless explicitly requested.
 * Top-level policy groups such as `AI`, `Netflix`, `Disney`, `Proxy`, and `Final` should remain manual `select` groups unless explicitly requested otherwise.
 
 ## DNS Conventions

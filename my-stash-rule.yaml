@@ -134,7 +134,6 @@ proxy-groups:
     type: select
     proxies:
       - Proxy
-      - Auto
       - SG
       - HK-Advance
       - HK
@@ -153,13 +152,11 @@ proxy-groups:
     proxies:
       - DIRECT
       - Proxy
-      - Auto
 
   - name: Games-Proxy
     type: select
     proxies:
       - Proxy
-      - Auto
       - Manual
       - Manul2
       - DIRECT
@@ -169,7 +166,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - Proxy
-      - Auto
 
   - name: Dev
     type: select
@@ -186,7 +182,6 @@ proxy-groups:
       - US
       - KR
       - Proxy
-      - Auto
       - DIRECT
 
   - name: Netflix
@@ -194,7 +189,6 @@ proxy-groups:
     proxies:
       - SG
       - Proxy
-      - Auto
       - HK-Advance
       - HK
       - TW
@@ -212,7 +206,6 @@ proxy-groups:
     proxies:
       - SG
       - Proxy
-      - Auto
       - HK-Advance
       - HK
       - TW
@@ -240,7 +233,6 @@ proxy-groups:
       - US-Advance
       - US
       - Proxy
-      - Auto
       - Manual
       - Manul2
       - DIRECT
@@ -251,7 +243,6 @@ proxy-groups:
       - JP-Advance
       - JP
       - Proxy
-      - Auto
       - Manual
       - Manul2
       - DIRECT
@@ -260,7 +251,6 @@ proxy-groups:
     type: select
     proxies:
       - Proxy
-      - Auto
       - HK-Advance
       - HK
       - TW
@@ -278,7 +268,6 @@ proxy-groups:
     type: select
     proxies:
       - Proxy
-      - Auto
       - Manual
       - Manul2
       - DIRECT
@@ -288,14 +277,12 @@ proxy-groups:
     proxies:
       - DIRECT
       - Proxy
-      - Auto
 
   - name: China
     type: select
     proxies:
       - DIRECT
       - Proxy
-      - Auto
 
   - name: Ads
     type: select
@@ -306,7 +293,6 @@ proxy-groups:
   - name: Proxy
     type: select
     proxies:
-      - Auto
       - HK-Advance
       - HK
       - TW
@@ -325,7 +311,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - Proxy
-      - Auto
       - Manual
       - Manul2
 
@@ -333,7 +318,6 @@ proxy-groups:
     type: select
     proxies:
       - Proxy
-      - Auto
       - DIRECT
 
   - name: Manual
@@ -343,16 +327,6 @@ proxy-groups:
   - name: Manul2
     type: select
     include-all: true
-
-  - name: Auto
-    type: url-test
-    use:
-      - 订阅一
-      # - 订阅二
-    url: https://cp.cloudflare.com/generate_204
-    interval: 300
-    lazy: true
-    tolerance: 50
 
   - name: HK
     type: select

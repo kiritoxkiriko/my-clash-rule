@@ -70,7 +70,7 @@ https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/my
 * `JP-Advance`
 * `US-Advance`
 
-`Auto` 仍然是全局自动测速组。
+全局 `Auto` 自动测速组已移除，避免大范围跨地区自动切换。
 
 ### DNS
 
@@ -96,7 +96,7 @@ sing-box 模板里：
 * [my-stash-rule.yaml](./my-stash-rule.yaml) 的 `proxy-providers`
 * [my-singbox-rule.json](./my-singbox-rule.json) 的 `outbounds`
 
-Clash / Stash 支持 `proxy-providers`，sing-box 模板不做订阅转换，需要手动把真实节点 outbound 加到 `Manual`、`Manual2`、`Auto`、地区组或 Advance 地区组里。
+Clash / Stash 支持 `proxy-providers`，sing-box 模板不做订阅转换，需要手动把真实节点 outbound 加到 `Manual`、`Manual2`、地区组或 Advance 地区组里。
 
 ---
 
