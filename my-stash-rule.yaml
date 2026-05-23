@@ -344,7 +344,7 @@ proxy-groups:
     interval: 300
     lazy: true
     tolerance: 50
-    filter: "(?i)((港|hk|hong kong|hongkong).*(advance|advanced|高级|premium|专线|iplc|iepl)|(advance|advanced|高级|premium|专线|iplc|iepl).*(港|hk|hong kong|hongkong))"
+    filter: "(?i)^(?!.*(标准|实验|实验性|test|beta|exp|experimental))(?=.*(港|hk|hong kong|hongkong))(?=.*(advance|advanced|高级|premium)).*$"
 
   - name: JP
     type: select
@@ -362,7 +362,7 @@ proxy-groups:
     interval: 300
     lazy: true
     tolerance: 50
-    filter: "(?i)((日本|jp|japan).*(advance|advanced|高级|premium|专线|iplc|iepl)|(advance|advanced|高级|premium|专线|iplc|iepl).*(日本|jp|japan))"
+    filter: "(?i)^(?!.*(标准|实验|实验性|test|beta|exp|experimental))(?=.*(日本|jp|japan))(?=.*(advance|advanced|高级|premium)).*$"
 
   - name: US
     type: select
@@ -380,7 +380,7 @@ proxy-groups:
     interval: 300
     lazy: true
     tolerance: 50
-    filter: "(?i)((美|us|united states|unitedstates).*(advance|advanced|高级|premium|专线|iplc|iepl)|(advance|advanced|高级|premium|专线|iplc|iepl).*(美|us|united states|unitedstates))"
+    filter: "(?i)^(?!.*(标准|实验|实验性|test|beta|exp|experimental))(?=.*(美|us|united states|unitedstates))(?=.*(advance|advanced|高级|premium)).*$"
 
   - name: TW
     type: select

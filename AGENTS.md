@@ -42,6 +42,9 @@ npm run generate:singbox-srs
   * `JP-Advance`
   * `US-Advance`
 * When a group includes both a normal region and its Advance variant, the Advance variant should come first.
+* Advance filters should only match explicit advanced markers: `advance`, `advanced`, `高级`, or `premium`.
+* Do not use generic transport/line-quality words such as `iplc`, `iepl`, or `专线` for Advance filters; regular nodes may contain those words.
+* Exclude obvious non-Advance labels such as `标准`, `实验`, `实验性`, `test`, `beta`, `exp`, and `experimental`.
 * Do not reintroduce the global `Auto` group unless explicitly requested.
 * Top-level policy groups such as `AI`, `Netflix`, `Disney`, `Proxy`, and `Final` should remain manual `select` groups unless explicitly requested otherwise.
 

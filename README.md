@@ -70,6 +70,8 @@ https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/my
 * `JP-Advance`
 * `US-Advance`
 
+高级地区组只匹配明确高级标识：`advance`、`advanced`、`高级`、`premium`；并排除 `标准`、`实验`、`实验性`、`test`、`beta`、`exp`、`experimental` 等非高级节点标识。
+
 全局 `Auto` 自动测速组已移除，避免大范围跨地区自动切换。
 
 ### DNS
