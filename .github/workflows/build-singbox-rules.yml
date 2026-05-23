@@ -1,0 +1,54 @@
+name: Build sing-box rule sets
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'rules/**'
+      - 'rules-singbox/**'
+      - 'scripts/generate-singbox-rules.mjs'
+      - 'scripts/generate-singbox-srs.sh'
+      - 'package.json'
+      - '.github/workflows/build-singbox-rules.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install sing-box
+        run: |
+          url="$(curl -fsSL https://api.github.com/repos/SagerNet/sing-box/releases/latest \
+            | jq -r '.assets[] | select(.name | test("linux-amd64.tar.gz$")) | .browser_download_url' \
+            | head -n 1)"
+          curl -fsSL "$url" -o "$RUNNER_TEMP/sing-box.tar.gz"
+          mkdir -p "$RUNNER_TEMP/sing-box" "$RUNNER_TEMP/sing-box-bin"
+          tar -xzf "$RUNNER_TEMP/sing-box.tar.gz" -C "$RUNNER_TEMP/sing-box" --strip-components=1
+          cp "$RUNNER_TEMP/sing-box/sing-box" "$RUNNER_TEMP/sing-box-bin/sing-box"
+          chmod +x "$RUNNER_TEMP/sing-box-bin/sing-box"
+          echo "$RUNNER_TEMP/sing-box-bin" >> "$GITHUB_PATH"
+
+      - name: Generate source rule sets
+        run: npm run generate:singbox-rules
+
+      - name: Generate binary rule sets
+        run: npm run generate:singbox-srs
+
+      - name: Commit generated rule sets
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Build sing-box rule sets
+          file_pattern: rules-singbox/*.json rules-singbox-srs/*.srs

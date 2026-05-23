@@ -15,8 +15,8 @@ dns:
     - 119.29.29.29
     - 223.5.5.5
   nameserver:
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com/dns-query
+    - tls://dot.pub
+    - tls://dns.alidns.com
   skip-cert-verify: true
   follow-rule: false
 
@@ -136,9 +136,12 @@ proxy-groups:
       - Proxy
       - Auto
       - SG
+      - HK-Advance
       - HK
       - TW
+      - JP-Advance
       - JP
+      - US-Advance
       - US
       - KR
       - Manual
@@ -174,9 +177,12 @@ proxy-groups:
       - Manual
       - Manul2
       - SG
+      - HK-Advance
       - HK
       - TW
+      - JP-Advance
       - JP
+      - US-Advance
       - US
       - KR
       - Proxy
@@ -189,9 +195,12 @@ proxy-groups:
       - SG
       - Proxy
       - Auto
+      - HK-Advance
       - HK
       - TW
+      - JP-Advance
       - JP
+      - US-Advance
       - US
       - KR
       - Manual
@@ -204,9 +213,12 @@ proxy-groups:
       - SG
       - Proxy
       - Auto
+      - HK-Advance
       - HK
       - TW
+      - JP-Advance
       - JP
+      - US-Advance
       - US
       - KR
       - Manual
@@ -225,6 +237,7 @@ proxy-groups:
   - name: Video-US
     type: select
     proxies:
+      - US-Advance
       - US
       - Proxy
       - Auto
@@ -235,6 +248,7 @@ proxy-groups:
   - name: Video-JP
     type: select
     proxies:
+      - JP-Advance
       - JP
       - Proxy
       - Auto
@@ -247,10 +261,13 @@ proxy-groups:
     proxies:
       - Proxy
       - Auto
+      - HK-Advance
       - HK
       - TW
       - SG
+      - JP-Advance
       - JP
+      - US-Advance
       - US
       - KR
       - Manual
@@ -290,10 +307,13 @@ proxy-groups:
     type: select
     proxies:
       - Auto
+      - HK-Advance
       - HK
       - TW
       - SG
+      - JP-Advance
       - JP
+      - US-Advance
       - US
       - KR
       - Manual
@@ -329,8 +349,10 @@ proxy-groups:
     use:
       - 订阅一
       # - 订阅二
+    url: https://cp.cloudflare.com/generate_204
     interval: 300
     lazy: true
+    tolerance: 50
 
   - name: HK
     type: select
@@ -339,6 +361,17 @@ proxy-groups:
       # - 订阅二
     filter: "(?i)(港|hk|hong kong|hongkong)"
 
+  - name: HK-Advance
+    type: url-test
+    use:
+      - 订阅一
+      # - 订阅二
+    url: https://cp.cloudflare.com/generate_204
+    interval: 300
+    lazy: true
+    tolerance: 50
+    filter: "(?i)((港|hk|hong kong|hongkong).*(advance|advanced|高级|premium|专线|iplc|iepl)|(advance|advanced|高级|premium|专线|iplc|iepl).*(港|hk|hong kong|hongkong))"
+
   - name: JP
     type: select
     use:
@@ -346,12 +379,34 @@ proxy-groups:
       # - 订阅二
     filter: "(?i)(日本|jp|japan)"
 
+  - name: JP-Advance
+    type: url-test
+    use:
+      - 订阅一
+      # - 订阅二
+    url: https://cp.cloudflare.com/generate_204
+    interval: 300
+    lazy: true
+    tolerance: 50
+    filter: "(?i)((日本|jp|japan).*(advance|advanced|高级|premium|专线|iplc|iepl)|(advance|advanced|高级|premium|专线|iplc|iepl).*(日本|jp|japan))"
+
   - name: US
     type: select
     use:
       - 订阅一
       # - 订阅二
     filter: "(?i)(美|us|united states|unitedstates)"
+
+  - name: US-Advance
+    type: url-test
+    use:
+      - 订阅一
+      # - 订阅二
+    url: https://cp.cloudflare.com/generate_204
+    interval: 300
+    lazy: true
+    tolerance: 50
+    filter: "(?i)((美|us|united states|unitedstates).*(advance|advanced|高级|premium|专线|iplc|iepl)|(advance|advanced|高级|premium|专线|iplc|iepl).*(美|us|united states|unitedstates))"
 
   - name: TW
     type: select

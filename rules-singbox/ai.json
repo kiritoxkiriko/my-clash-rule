@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_suffix": [
+        "platform.openai.com",
+        "chat.sqlboy.me",
+        "chatgpt.sqlboy.me",
+        "windsurf.com"
+      ]
+    }
+  ]
+}

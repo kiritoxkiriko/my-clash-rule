@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_suffix": [
+        "vrchat.com",
+        "vrchat.cloud",
+        "d348imysud55la.cloudfront.net"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,670 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "local",
+        "type": "local"
+      },
+      {
+        "tag": "local-119",
+        "type": "udp",
+        "server": "119.29.29.29"
+      },
+      {
+        "tag": "local-223",
+        "type": "udp",
+        "server": "223.5.5.5"
+      },
+      {
+        "tag": "remote",
+        "type": "tls",
+        "server": "1.1.1.1"
+      },
+      {
+        "tag": "remote-8",
+        "type": "tls",
+        "server": "8.8.8.8"
+      }
+    ],
+    "rules": [
+      {
+        "rule_set": ["custom-direct", "custom-china", "custom-dev-cn", "geosite-cn", "geosite-apple", "geosite-microsoft", "geosite-category-dev-cn"],
+        "server": "local"
+      }
+    ],
+    "final": "remote",
+    "strategy": "ipv4_only"
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 7890
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "AI",
+      "outbounds": ["Proxy", "Auto", "SG", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "default": "Proxy"
+    },
+    {
+      "type": "selector",
+      "tag": "Games-Direct",
+      "outbounds": ["direct", "Proxy", "Auto"],
+      "default": "direct"
+    },
+    {
+      "type": "selector",
+      "tag": "Games-Proxy",
+      "outbounds": ["Proxy", "Auto", "Manual", "Manual2", "direct"],
+      "default": "Proxy"
+    },
+    {
+      "type": "selector",
+      "tag": "Dev-CN",
+      "outbounds": ["direct", "Proxy", "Auto"],
+      "default": "direct"
+    },
+    {
+      "type": "selector",
+      "tag": "Dev",
+      "outbounds": ["Manual", "Manual2", "SG", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Proxy", "Auto", "direct"],
+      "default": "Manual"
+    },
+    {
+      "type": "selector",
+      "tag": "Netflix",
+      "outbounds": ["SG", "Proxy", "Auto", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "default": "SG"
+    },
+    {
+      "type": "selector",
+      "tag": "Disney",
+      "outbounds": ["SG", "Proxy", "Auto", "HK-Advance", "HK", "TW", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "default": "SG"
+    },
+    {
+      "type": "selector",
+      "tag": "Video-TW",
+      "outbounds": ["TW", "Proxy", "Manual", "Manual2", "direct"],
+      "default": "TW"
+    },
+    {
+      "type": "selector",
+      "tag": "Video-US",
+      "outbounds": ["US-Advance", "US", "Proxy", "Auto", "Manual", "Manual2", "direct"],
+      "default": "US-Advance"
+    },
+    {
+      "type": "selector",
+      "tag": "Video-JP",
+      "outbounds": ["JP-Advance", "JP", "Proxy", "Auto", "Manual", "Manual2", "direct"],
+      "default": "JP-Advance"
+    },
+    {
+      "type": "selector",
+      "tag": "Video-Common",
+      "outbounds": ["Proxy", "Auto", "HK-Advance", "HK", "TW", "SG", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "default": "Proxy"
+    },
+    {
+      "type": "selector",
+      "tag": "VRChat",
+      "outbounds": ["Proxy", "Auto", "Manual", "Manual2", "direct"],
+      "default": "Proxy"
+    },
+    {
+      "type": "selector",
+      "tag": "Direct",
+      "outbounds": ["direct", "Proxy", "Auto"],
+      "default": "direct"
+    },
+    {
+      "type": "selector",
+      "tag": "China",
+      "outbounds": ["direct", "Proxy", "Auto"],
+      "default": "direct"
+    },
+    {
+      "type": "selector",
+      "tag": "Proxy",
+      "outbounds": ["Auto", "HK-Advance", "HK", "TW", "SG", "JP-Advance", "JP", "US-Advance", "US", "KR", "Manual", "Manual2", "direct"],
+      "default": "Auto"
+    },
+    {
+      "type": "selector",
+      "tag": "Final",
+      "outbounds": ["direct", "Proxy", "Auto", "Manual", "Manual2"],
+      "default": "direct"
+    },
+    {
+      "type": "selector",
+      "tag": "DNS",
+      "outbounds": ["Proxy", "Auto", "direct"],
+      "default": "Proxy"
+    },
+    {
+      "type": "selector",
+      "tag": "Manual",
+      "outbounds": ["direct"],
+      "default": "direct"
+    },
+    {
+      "type": "selector",
+      "tag": "Manual2",
+      "outbounds": ["direct"],
+      "default": "direct"
+    },
+    {
+      "type": "urltest",
+      "tag": "Auto",
+      "outbounds": ["direct"],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "5m",
+      "tolerance": 50
+    },
+    {
+      "type": "selector",
+      "tag": "HK",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "default": "Manual"
+    },
+    {
+      "type": "urltest",
+      "tag": "HK-Advance",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "5m",
+      "tolerance": 50
+    },
+    {
+      "type": "selector",
+      "tag": "JP",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "default": "Manual"
+    },
+    {
+      "type": "urltest",
+      "tag": "JP-Advance",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "5m",
+      "tolerance": 50
+    },
+    {
+      "type": "selector",
+      "tag": "US",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "default": "Manual"
+    },
+    {
+      "type": "urltest",
+      "tag": "US-Advance",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "5m",
+      "tolerance": 50
+    },
+    {
+      "type": "selector",
+      "tag": "TW",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "default": "Manual"
+    },
+    {
+      "type": "selector",
+      "tag": "SG",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "default": "Manual"
+    },
+    {
+      "type": "selector",
+      "tag": "KR",
+      "outbounds": ["Manual", "Manual2", "direct"],
+      "default": "Manual"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "Direct"
+      },
+      {
+        "rule_set": ["custom-vrchat"],
+        "outbound": "VRChat"
+      },
+      {
+        "rule_set": ["custom-games-direct", "geosite-xbox", "geosite-tencent-games", "geosite-steam@cn"],
+        "outbound": "Games-Direct"
+      },
+      {
+        "rule_set": ["custom-games-proxy", "geosite-steam", "geosite-origin", "geosite-nintendo"],
+        "outbound": "Games-Proxy"
+      },
+      {
+        "rule_set": ["custom-direct", "geosite-apple", "geosite-microsoft"],
+        "outbound": "Direct"
+      },
+      {
+        "rule_set": ["custom-ads", "geosite-category-ads-all"],
+        "outbound": "block"
+      },
+      {
+        "rule_set": ["custom-ai", "geosite-category-ai-!cn", "geosite-anthropic", "geosite-openai"],
+        "outbound": "AI"
+      },
+      {
+        "rule_set": ["custom-netflix", "geosite-netflix"],
+        "outbound": "Netflix"
+      },
+      {
+        "rule_set": ["custom-disney", "geosite-disney"],
+        "outbound": "Disney"
+      },
+      {
+        "rule_set": ["custom-video-tw", "geosite-tvb", "geosite-mytvsuper", "geosite-bahamut"],
+        "outbound": "Video-TW"
+      },
+      {
+        "rule_set": ["custom-video-us", "geosite-hbo", "geosite-hulu"],
+        "outbound": "Video-US"
+      },
+      {
+        "rule_set": ["custom-video-jp", "geosite-primevideo", "geosite-hulu"],
+        "outbound": "Video-JP"
+      },
+      {
+        "rule_set": ["custom-video-common", "geosite-youtube", "geosite-twitch", "geosite-category-porn"],
+        "outbound": "Video-Common"
+      },
+      {
+        "rule_set": ["custom-dev-cn", "geosite-category-dev-cn"],
+        "outbound": "Dev-CN"
+      },
+      {
+        "rule_set": ["custom-dev", "geosite-category-dev", "geosite-onedrive"],
+        "outbound": "Dev"
+      },
+      {
+        "rule_set": ["custom-proxy", "geosite-geolocation-!cn", "geosite-reddit", "geosite-google", "geosite-ehentai"],
+        "outbound": "Proxy"
+      },
+      {
+        "rule_set": ["custom-china", "geoip-cn", "geosite-cn"],
+        "outbound": "China"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "custom-ads",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/ads.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-ai",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/ai.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-china",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/china.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-dev-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/dev-cn.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-dev",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/dev.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-direct",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/direct.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-disney",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/disney.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-games-direct",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/games-direct.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-games-proxy",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/games-proxy.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-netflix",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/netflix.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-proxy",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/proxy.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-video-common",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/video-common.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-video-jp",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/video-jp.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-video-tw",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/video-tw.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-video-us",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/video-us.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "custom-vrchat",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/kiritoxkiriko/my-clash-rule/refs/heads/main/rules-singbox-srs/vrchat.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geoip-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-apple",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-microsoft",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-category-ads-all",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads-all.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-category-ai-!cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-!cn.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-anthropic",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/anthropic.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-openai",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/openai.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-xbox",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/xbox.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-tencent-games",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tencent-games.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-steam@cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/steam@cn.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-steam",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/steam.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-origin",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/origin.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-nintendo",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/nintendo.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-category-dev-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-dev-cn.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-category-dev",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-dev.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-onedrive",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/onedrive.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-netflix",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-disney",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/disney.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-tvb",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tvb.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-mytvsuper",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/mytvsuper.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-bahamut",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bahamut.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-hbo",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/hbo.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-hulu",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/hulu.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-primevideo",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/primevideo.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-youtube",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-twitch",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/twitch.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-category-porn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-porn.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-geolocation-!cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-reddit",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/reddit.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-google",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-ehentai",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/ehentai.srs",
+        "update_interval": "1d"
+      }
+    ],
+    "final": "Final",
+    "default_domain_resolver": "local",
+    "auto_detect_interface": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_suffix": [
+        "unraid.net",
+        "docker.io",
+        "docker.com",
+        "k8s.io",
+        "pkg.dev",
+        "huggingface.co",
+        "nvidia.cn",
+        "jetstack.io",
+        "brew.sh",
+        "mvnrepository.com",
+        "vllm.ai",
+        "iterm2.com",
+        "zerofs.link"
+      ]
+    }
+  ]
+}

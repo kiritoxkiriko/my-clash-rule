@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "generate:singbox-rules": "node scripts/generate-singbox-rules.mjs",
+    "generate:singbox-srs": "scripts/generate-singbox-srs.sh"
+  },
   "dependencies": {
     "yaml": "^2.8.1"
   }
