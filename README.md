@@ -184,6 +184,7 @@ sing-box check -c my-singbox-rule.json
 
 功能：
 
+* 无参数访问时提供一个简单前端页面，可填写订阅地址、选择输出 type，并生成订阅链接
 * 接收订阅链接
 * 返回已经替换好 `订阅一` 的 `my-clash-rule.yaml`
 * 可选转换成兼容 Stash 的 YAML
@@ -192,7 +193,7 @@ sing-box check -c my-singbox-rule.json
 请求参数：
 
 * `sub`：订阅链接，必填
-* `target=stash` / `format=stash` / `stash=1`：输出 Stash 兼容版 YAML
+* `type=stash` / `target=stash` / `format=stash` / `stash=1`：输出 Stash 兼容版 YAML
 * `provider=1`：返回 `proxies:` 节点，内部使用
 * `ghproxy`：是否启用 GitHub 加速，支持 `1/true/yes/on`
 
@@ -200,7 +201,7 @@ sing-box check -c my-singbox-rule.json
 
 ```text
 https://your-worker.workers.dev/?sub=https%3A%2F%2Fexample.com%2Fsubscribe&ghproxy=1
-https://your-worker.workers.dev/?sub=https%3A%2F%2Fexample.com%2Fsubscribe&target=stash
+https://your-worker.workers.dev/?sub=https%3A%2F%2Fexample.com%2Fsubscribe&type=stash
 ```
 
 本地部署：
